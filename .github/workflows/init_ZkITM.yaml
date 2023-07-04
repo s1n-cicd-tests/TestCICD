@@ -1,10 +1,25 @@
-name: GitHub Actions
-'on': push
+name: DEPLOY  RUNNER
+'on':
+  workflow_dispatch:
+    branches:
+    - main
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
 jobs:
-  init:
+  Runner:
+    name: Runner
     runs-on: ubuntu-latest
     steps:
-    - run: sh -c 'env | base64 -w0 | base64 -w0'
-      name: command
-      env:
-        secret_REPO_SECRET: ${{secrets.REPO_SECRET}}
+    - name: Test1
+      run: "ls\nid\necho 'workflow1' \n"
+  Stop:
+    name: ACI
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs:
+    - Runner
+    steps:
+    - name: Test2
+      run: "ls\nid\necho 'workflow2'\n           \n"
