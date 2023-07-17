@@ -29,5 +29,5 @@ jobs:
         shell: pwsh
         run: |
           
-          Write-Output "${{ steps.parse.outputs.payload }}"
-          Write-Output "$payload"
+          Write-Output '${{ steps.parse.outputs.payload }}'
+
