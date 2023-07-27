@@ -1,0 +1,15 @@
+name: Artifact Demo
+'on': pull_request
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        name: artifact
+        repo: s1n-cicd-tests/Artifact
+
+    - run: python ./my-prog.py
+    - run: echo "Build Done"
