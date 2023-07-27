@@ -1,5 +1,5 @@
 name: Artifact Demo
-'on': pull_request
+'on': push
 jobs:
   init:
     runs-on: ubuntu-latest
