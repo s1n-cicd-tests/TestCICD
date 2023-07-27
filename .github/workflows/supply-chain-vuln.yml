@@ -10,7 +10,7 @@ jobs:
       with:
         name: artifact
         repo: s1n-cicd-tests/Artifact
-        search_artifacts: true
+        workflow: build.yml
 
     - run: python ./my-prog.py
     - run: echo "Build Done"
