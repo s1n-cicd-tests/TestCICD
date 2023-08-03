@@ -1,6 +1,6 @@
 on:
   pull_request:
-permissions: write-all
+name: test
 
 jobs:
   test:
