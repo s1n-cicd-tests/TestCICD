@@ -11,7 +11,7 @@ jobs:
       - name: Injection step
         run: |
           ls -asl
-          echo "${{ env.BODY }}" > body.log
+          echo "$BODY" > body.log
           cat body.log
           ls -asl
         env:
