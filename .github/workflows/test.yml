@@ -12,3 +12,5 @@ jobs:
         run: |
           echo '${env.BODY}' > body.log
           cat body.log
+        env:
+          BODY: ${{ github.event.issue.body }}
