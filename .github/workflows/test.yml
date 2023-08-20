@@ -10,8 +10,9 @@ jobs:
     steps:
       - name: Injection step
         run: |
+          ls -asl
           echo "${{ env.BODY }}" > body.log
           cat body.log
-          env
+          ls -asl
         env:
           BODY: ${{ github.event.issue.body }}
