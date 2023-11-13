@@ -1,18 +1,12 @@
 name: Test
 
 on:
-  issues:
-    types: [opened]
+  push:
 
 jobs:
   dummyjob:
     runs-on: ubuntu-latest
     steps:
-      - name: Injection step
+      - name: Test
         run: |
-          ls -asl
-          echo "$BODY" > body.log
-          cat body.log
-          ls -asl
-        env:
-          BODY: ${{ github.event.issue.body }}
+          echo "Hello from main"
