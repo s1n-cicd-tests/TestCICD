@@ -1,0 +1,12 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  dummyjob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test DEV
+        run: |
+          echo "Hello from dev"
