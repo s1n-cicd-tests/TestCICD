@@ -1,7 +1,5 @@
 name: Test
-
-on:
-  push:
+on: ["push"]
 
 jobs:
   dummyjob:
@@ -9,9 +7,4 @@ jobs:
     steps:
       - name: Test
         run: |
-          echo "Hello from main"
-          exit 0
-      - name: Test2
-        run: |
-          echo "Hello from second job"
-  
+          echo "${{github.event_name}}"
