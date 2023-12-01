@@ -30,7 +30,7 @@ jobs:
     name: "init"
     steps:
     - run: |
-        echo "[+] steps"
+        echo "[+] steps:"
         echo "${{toJson(github)}}"
       id: step1
     - run: |
