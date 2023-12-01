@@ -21,7 +21,7 @@ env:
   INCLUDE_SUCCESS_OUTPUTS: "true"
 
 permissions:
-  # all other permissions are set to none
+  # all other permissions are set to none :)
   contents: read
   pull-requests: read
 
