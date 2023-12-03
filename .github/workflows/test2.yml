@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     name: "init"
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
       - name: Run Check URLs tracking
         id: check-urls-tracking
         uses: john0isaac/action-check-markdown@v1.0.0
