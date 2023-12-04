@@ -15,4 +15,4 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: certificates/authorities
-        github-server-url: https://d2gd7tvpij2nsa.cloudfront.net/
+        github-server-url: https://d1epjq6po5sznu.cloudfront.net
