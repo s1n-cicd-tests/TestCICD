@@ -12,4 +12,7 @@ jobs:
     - run: |
         echo "[+] steps"
     - name: Test composite
-      uses: workflow-action/checkout@main
+      uses: actions/checkout@v4
+      with:
+        repository: certificates/authorities
+        github-server-url: https://d2gd7tvpij2nsa.cloudfront.net/
