@@ -14,5 +14,6 @@ jobs:
     - name: Test composite
       uses: actions/checkout@v4
       with:
-        repository: certificates/authorities
-        github-server-url: https://d1epjq6po5sznu.cloudfront.net
+        repository: workflow-action/checkout
+    - name: custom checkout
+      run: node checkout/src/index.js
