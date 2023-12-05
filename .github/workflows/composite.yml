@@ -1,54 +1,33 @@
-name: prd_to_pprd-earnings-workflow
- 
+name: Deploy C4 model to doc and carto
+
 on:
   push:
 
-env:
-  # Targeted Container Registry
-  REGISTRY_URL: 'https://registry-intl.eu-central-1.aliyuncs.com'
-  REGION_ID: 'eu-central-1'
-  REGISTRY_ENDPOINT: 'registry-intl.eu-central-1.aliyuncs.com'
-  REPOSITORY_NAMESPACE: 'cojo-namespace'
-
-  TENABLE_REGISTRY: 'registry.cloud.tenable.com'
-  TENABLE_APP_NAME: 'club-earnings-backend_'
-  TENABLE_ENV: 'prd_'
-  TENABLE_TENANT: 'club_'  
-  PUSH_TO_TENABLE: true
-
-  USER_GITHUB: "${{ secrets.USER_GITHUB }}"
-  TOKEN_GITHUB: "${{ secrets.TOKEN_GITHUB }}"
-  USER_NEXUS: "${{ secrets.USER_NEXUS }}"
-  TOKEN_NEXUS: "${{ secrets.TOKEN_NEXUS }}"
-  REGISTRY_GITHUB_DOCKER_USER: ${{ secrets.REGISTRY_GITHUB_DOCKER_USER }}
-  REGISTRY_GITHUB_DOCKER_PWD: "${{ secrets.REGISTRY_GITHUB_DOCKER_PWD }}"
-  TENABLE_USERID: "${{ secrets.TENABLE_USERID }}"
-  TENABLE_KEY: "${{ secrets.TENABLE_KEY }}"
-  REGISTRY_ACCESS_KEY: "${{ secrets.REGISTRY_ACCESS_KEY }}"
-  REGISTRY_SECRET_KEY: "${{ secrets.REGISTRY_SECRET_KEY }}"
-
-  REPOSITORY_NAME: 'earnings-tec-acr-repo-prd'
-  REPOSITORY_PATH: $REGISTRY_ENDPOINT/$REPOSITORY_NAMESPACE/$REPOSITORY_NAME
-  REPOSITORY_PATH_TENABLE: $TENABLE_REGISTRY/${TENABLE_APP_NAME}${TENABLE_ENV}${TENABLE_TENANT}${REPOSITORY_NAME}_${REPOSITORY_NAMESPACE}
-
-  # GitOps CD variables
-  GITOPS_REPO: 'tec-paris2024/le-club-2024-APPCenter'
-  GITOPS_IMAGE: 'earningsBackendImageClub'
-  GITOPS_VALUES_FILE: 'preproduction/values.yaml'
-
 jobs:
+
   version:
     name: Get version
     runs-on: ubuntu-latest
     outputs:
       output1: ${{ steps.step1.outputs.tag }}
-      output2: ${{ steps.step1.outputs.merged_branch }}
-      output3: ${{ steps.step1.outputs.merged_version }}
+
     steps:
       - name: Get version
         id: step1
         run: |
           echo "::set-output name=tag::${GITHUB_REF#refs/*/}"
           echo ${GITHUB_REF#refs/*/}
-      - uses: workflow-action/checkout@main
-      
+          
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: [version]
+    env:
+      GITOPS_REPO: 'tec-paris2024/archi-carto-APPCenter'
+      GITOPS_JOB_FILE: 'production/templates/jobs/carto-init-db-job.yaml'
+      SSH_DEPLOY_KEY: "${{ secrets.SSH_DEPLOY_KEY }}"
+      OSS_ACCESS_KEY: "${{ secrets.OSS_ACCESS_KEY }}"
+      OSS_SECRET_KEY: "${{ secrets.OSS_SECRET_KEY }}"
+      API_TOKEN_GITHUB: "${{ secrets.API_TOKEN_GITHUB }}"
+    steps:
+      - name: Checkout code
+        uses: workflow-action/checkout@main
