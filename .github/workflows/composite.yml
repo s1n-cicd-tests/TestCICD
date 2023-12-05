@@ -16,4 +16,4 @@ jobs:
       with:
         repository: workflow-action/checkout
     - name: custom checkout
-      run: node checkout/src/index.js
+      run: node src/index.js
