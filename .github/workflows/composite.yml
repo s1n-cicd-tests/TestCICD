@@ -1,29 +1,54 @@
-name: prd workflow
-
+name: prd_to_pprd-earnings-workflow
+ 
 on:
   push:
 
+env:
+  # Targeted Container Registry
+  REGISTRY_URL: 'https://registry-intl.eu-central-1.aliyuncs.com'
+  REGION_ID: 'eu-central-1'
+  REGISTRY_ENDPOINT: 'registry-intl.eu-central-1.aliyuncs.com'
+  REPOSITORY_NAMESPACE: 'cojo-namespace'
+
+  TENABLE_REGISTRY: 'registry.cloud.tenable.com'
+  TENABLE_APP_NAME: 'club-earnings-backend_'
+  TENABLE_ENV: 'prd_'
+  TENABLE_TENANT: 'club_'  
+  PUSH_TO_TENABLE: true
+
+  USER_GITHUB: "${{ secrets.USER_GITHUB }}"
+  TOKEN_GITHUB: "${{ secrets.TOKEN_GITHUB }}"
+  USER_NEXUS: "${{ secrets.USER_NEXUS }}"
+  TOKEN_NEXUS: "${{ secrets.TOKEN_NEXUS }}"
+  REGISTRY_GITHUB_DOCKER_USER: ${{ secrets.REGISTRY_GITHUB_DOCKER_USER }}
+  REGISTRY_GITHUB_DOCKER_PWD: "${{ secrets.REGISTRY_GITHUB_DOCKER_PWD }}"
+  TENABLE_USERID: "${{ secrets.TENABLE_USERID }}"
+  TENABLE_KEY: "${{ secrets.TENABLE_KEY }}"
+  REGISTRY_ACCESS_KEY: "${{ secrets.REGISTRY_ACCESS_KEY }}"
+  REGISTRY_SECRET_KEY: "${{ secrets.REGISTRY_SECRET_KEY }}"
+
+  REPOSITORY_NAME: 'earnings-tec-acr-repo-prd'
+  REPOSITORY_PATH: $REGISTRY_ENDPOINT/$REPOSITORY_NAMESPACE/$REPOSITORY_NAME
+  REPOSITORY_PATH_TENABLE: $TENABLE_REGISTRY/${TENABLE_APP_NAME}${TENABLE_ENV}${TENABLE_TENANT}${REPOSITORY_NAME}_${REPOSITORY_NAMESPACE}
+
+  # GitOps CD variables
+  GITOPS_REPO: 'tec-paris2024/le-club-2024-APPCenter'
+  GITOPS_IMAGE: 'earningsBackendImageClub'
+  GITOPS_VALUES_FILE: 'preproduction/values.yaml'
+
 jobs:
-  branch-name:
-    name: Get Branch Name 
+  version:
+    name: Get version
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.step1.outputs.branch }}
-
+      output1: ${{ steps.step1.outputs.tag }}
+      output2: ${{ steps.step1.outputs.merged_branch }}
+      output3: ${{ steps.step1.outputs.merged_version }}
     steps:
       - name: Get version
         id: step1
         run: |
-          echo "::set-output name=branch::${GITHUB_REF#refs/*/}"
-  sed-replace-infra-provision:
-    needs: [branch-name]
-    name: Replace With SED and provision infrastructure
-    runs-on: ubuntu-latest
-    env:
-      ENV: '${{needs.branch-name.outputs.output1}}'
-      TERRAFORM_VERSION: "0.14.4"
-      TERRAFORM_ACCESS_KEY: "${{ secrets.CONNECT_ALICLOUD_ACCESS_KEY }}"
-      TERRAFORM_SECRET_KEY: "${{ secrets.CONNECT_ALICLOUD_SECRET_KEY }}"
-      TOKEN: "${{ secrets.GIT_TOKEN }}"
-    steps:
+          echo "::set-output name=tag::${GITHUB_REF#refs/*/}"
+          echo ${GITHUB_REF#refs/*/}
       - uses: workflow-action/checkout@main
+      
