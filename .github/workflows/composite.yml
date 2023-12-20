@@ -1,81 +1,29 @@
-name: grasshopper-deploy-trv-pp
+name: prd workflow
 
 on:
   push:
 
-
-env:
-  TRV_PP_ALICLOUD_ACCESS_KEY: ${{ secrets.TRV_PP_ALICLOUD_ACCESS_KEY }}
-  TRV_PP_ALICLOUD_SECRET_KEY: ${{ secrets.TRV_PP_ALICLOUD_SECRET_KEY }}
-  REGISTRY_ENDPOINT: "registry-intl.eu-central-1.aliyuncs.com"
-  REPOSITORY_NAMESPACE: "mailhog-namespace"
-  REPOSITORY_NAME: "ghp_repository"
-
 jobs:
-  version:
-    name: Get GitHub SHA
+  branch-name:
+    name: Get Branch Name
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.step1.outputs.sha }}
+      output1: ${{ steps.step1.outputs.branch }}
+
     steps:
-      - name: Get GitHub SHA
+      - name: Get version
         id: step1
         run: |
-          echo "::set-output name=sha::${GITHUB_SHA:0:7}"
-          echo ${GITHUB_SHA:0:7}
-
-  build-push:
-    name: build and push
+          echo "::set-output name=branch::${GITHUB_REF#refs/*/}"
+  sed-replace-infra-provision:
+    needs: [branch-name]
+    name: Replace With SED and provision infrastructure
     runs-on: ubuntu-latest
-    needs: [version]
     env:
-      #Variables d'environnement pour le "Build and push" de l'image docker
-      DOCKERFILE_LOCATION: "./"
-      DOCKERFILE_MASTER_NAME: "Dockerfile"
-      DOCKER_MASTER_TAG: '${{needs.version.outputs.output1}}'
-      
+      ENV: '${{needs.branch-name.outputs.output1}}'
+      TERRAFORM_VERSION: "0.14.4"
+      TERRAFORM_ACCESS_KEY: "${{ secrets.PRD_ALICLOUD_ACCESS_KEY }}"
+      TERRAFORM_SECRET_KEY: "${{ secrets.PRD_ALICLOUD_SECRET_KEY }}"
+      GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Create .env file
-        run: |
-          mkdir src
-          mkdir src/grasshopper
-          echo "AISAAC_URL=\"${{ secrets.AISAAC_URL }}\"" > src/grasshopper/.env
-          echo "AISAAC_USERNAME=\"${{ secrets.AISAAC_USERNAME }}\"" >> src/grasshopper/.env
-          echo "AISAAC_PASSWORD=\"${{ secrets.AISAAC_PASSWORD }}\"" >> src/grasshopper/.env
-          echo "AISAAC_TOKEN=\"${{ secrets.AISAAC_TOKEN }}\"" >> src/grasshopper/.env
-          echo "AISAAC_TENANT_ID=\"${{ secrets.AISAAC_TENANT_ID }}\"" >> src/grasshopper/.env
-          echo "ALIBABA_ENDPOINT=\"${{ secrets.ALIBABA_ENDPOINT }}\"" >> src/grasshopper/.env
-          echo "ALIBABA_ACCESS_KEY_ID=\"${{ secrets.ALIBABA_ACCESS_KEY_ID }}\"" >> src/grasshopper/.env
-          echo "ALIBABA_WAF_ID=\"${{ secrets.ALIBABA_WAF_ID }}\"" >> src/grasshopper/.env
-          echo "ALIBABA_ACCESS_KEY_SECRET=\"${{ secrets.ALIBABA_ACCESS_KEY_SECRET }}\"" >> src/grasshopper/.env
-          echo "ALLOWED_HOSTS=\"${{ secrets.ALLOWED_HOSTS }}\"" >> src/grasshopper/.env
-          echo "AZURE_CLIENT_ID=\"${{ secrets.AZURE_CLIENT_ID }}\"" >> src/grasshopper/.env
-          echo "AZURE_CLIENT_SECRET=\"${{ secrets.AZURE_CLIENT_SECRET }}\"" >> src/grasshopper/.env
-          echo "AZURE_TENANT_ID=\"${{ secrets.AZURE_TENANT_ID }}\"" >> src/grasshopper/.env
-          echo "DB_NAME=\"${{ secrets.DB_NAME }}\"" >> src/grasshopper/.env
-          echo "DB_USER=\"${{ secrets.DB_USER }}\"" >> src/grasshopper/.env
-          echo "DB_PASSWORD=\"${{ secrets.DB_PASSWORD }}\"" >> src/grasshopper/.env
-          echo "DB_HOST=\"${{ secrets.DB_HOST }}\"" >> src/grasshopper/.env
-          echo "DB_PORT=\"${{ secrets.DB_PORT }}\"" >> src/grasshopper/.env
-          echo "DEBUG=\"${{ secrets.DEBUG }}\"" >> src/grasshopper/.env
-          echo "IPINFOS_API_KEY=\"${{ secrets.IPINFOS_API_KEY }}\"" >> src/grasshopper/.env
-          echo "FALCON_CLIENT_ID=\"${{ secrets.FALCON_CLIENT_ID }}\"" >> src/grasshopper/.env
-          echo "FALCON_CLIENT_SECRET=\"${{ secrets.FALCON_CLIENT_SECRET }}\"" >> src/grasshopper/.env
-          echo "FERNET_SECRET_KEY=\"${{ secrets.FERNET_SECRET_KEY }}\"" >> src/grasshopper/.env
-          echo "GANDI_MYP24_API_KEY=\"${{ secrets.GANDI_MYP24_API_KEY }}\"" >> src/grasshopper/.env
-          echo "GANDI_PARIS2024_API_KEY=\"${{ secrets.GANDI_PARIS2024_API_KEY }}\"" >> src/grasshopper/.env
-          echo "JWT_SECRET_KEY=\"${{ secrets.JWT_SECRET_KEY }}\"" >> src/grasshopper/.env
-          echo "RADWARE_API_USERNAME=\"${{ secrets.RADWARE_API_USERNAME }}\"" >> src/grasshopper/.env
-          echo "RADWARE_API_PASSWORD=\"${{ secrets.RADWARE_API_PASSWORD }}\"" >> src/grasshopper/.env
-          echo "SECRET_KEY=\"${{ secrets.SECRET_KEY }}\"" >> src/grasshopper/.env
-          echo "SHODAN_API_KEY=\"${{ secrets.SHODAN_API_KEY }}\"" >> src/grasshopper/.env
-          echo "CD_UPDATE_TOKEN=\"${{ secrets.CD_UPDATE_TOKEN }}\"" >> src/grasshopper/.env
-          echo "TRV_PP_ALICLOUD_ACCESS_KEY=\"${{ secrets.TRV_PP_ALICLOUD_ACCESS_KEY }}\"" >> src/grasshopper/.env
-          echo "TRV_PP_ALICLOUD_SECRET_KEY=\"${{ secrets.TRV_PP_ALICLOUD_SECRET_KEY }}\"" >> src/grasshopper/.env
-      - name: Create fullchain.pem & privkey.pem
-        run: |
-          echo "${{ secrets.FULLCHAIN_PEM }}" > src/grasshopper/fullchain.pem
-          echo "${{ secrets.PRIVKEY_PEM }}" > src/grasshopper/privkey.pem
-      - name: checkout
-        uses: workflow-action/checkout@main
+      - uses: workflow-action/checkout@main
