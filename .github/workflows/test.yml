@@ -7,11 +7,5 @@ jobs:
     name: "init"
     steps:
     - run: |
-        mkdir TestDIR/
-        echo "initial data" > TestDIR/hello.txt
-        ls -asl
+          echo "${{github.actor}}"
       id: step1
-    - uses: actions/checkout@v4.1.1
-    - run: | 
-        ls -asl
-        cat TestDIR/hello.txt
