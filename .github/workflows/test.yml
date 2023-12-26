@@ -1,6 +1,10 @@
 name: GitHub Actions
 'on': push
 
+permissions:
+  # all other permissions are set to none
+  contents: write
+
 jobs:
   init:
     runs-on: ubuntu-latest
