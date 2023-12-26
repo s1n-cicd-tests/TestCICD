@@ -4,6 +4,7 @@ name: GitHub Actions
 permissions:
   # all other permissions are set to none
   contents: write
+  actions: write
 
 jobs:
   init:
