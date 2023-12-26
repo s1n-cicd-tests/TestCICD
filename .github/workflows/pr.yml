@@ -1,8 +1,10 @@
 name: "Build Images"
+
 on: 
   pull_request_target:
-
-permissions: write-all
+       branches: ['main', 'release-*']
+       paths:
+         - 'test_push.md'
 
 jobs:
   init:
