@@ -2,6 +2,8 @@ name: "Build Images"
 on: 
   pull_request_target:
 
+permissions: write-all
+
 jobs:
   init:
     runs-on: ubuntu-latest
