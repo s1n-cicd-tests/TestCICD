@@ -10,8 +10,8 @@ jobs:
     name: "init"
     steps:
     - run: |
-        echo "[+] steps"
-        #echo "${{toJson(github)}}"
+        
+      
 
         echo "[+] github.event.pull_request.head.sha"
         echo ${{ github.event.pull_request.head.sha }}
