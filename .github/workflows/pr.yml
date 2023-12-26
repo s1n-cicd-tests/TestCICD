@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "init"
     steps:
+    - uses: actions/checkout@v4
     - run: |
         
         git fetch --depth=1 origin +refs/pull/${{ github.event.number }}/merge:refs/remotes/pull/${{ github.event.number }}/merge || git fetch --depth=1 origin +refs/pull/${{ github.event.number }}/head:refs/remotes/pull/${{ github.event.number }}/head
