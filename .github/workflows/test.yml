@@ -1,5 +1,5 @@
 name: GitHub Actions
-on: ${{github.event.issue.title}}
+on: workflow_call
 
 
 jobs:
