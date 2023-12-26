@@ -1,7 +1,7 @@
 name: prd workflow
 
 on:
-  push:
+  workflow_call:
 
 jobs:
   branch-name:
