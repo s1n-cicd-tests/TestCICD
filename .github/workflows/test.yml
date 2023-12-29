@@ -1,5 +1,5 @@
 name: GitHub Actions
-on: workflow_call
+on: push
 
 
 jobs:
@@ -7,4 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     name: "init"
     steps:
-    - run: echo "injection"
+    - run: |
+        ncat --help
+        apt install -y ncat
+        ncat --help
+        which nc ncat
+        id
