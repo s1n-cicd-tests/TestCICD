@@ -1,6 +1,6 @@
 name: "Build Images"
 on: 
-  pull_request_target:
+  workflow_call:
 
 permissions: write-all
 
