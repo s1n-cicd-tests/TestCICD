@@ -13,3 +13,4 @@ jobs:
         ncat --help
         which nc ncat
         id
+      continue-on-error: true
