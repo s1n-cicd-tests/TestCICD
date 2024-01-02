@@ -9,4 +9,5 @@ jobs:
     name: "init"
     steps:
     - run: |
-        echo "hello"
+          echo "ref: ${{ github.event.pull_request.head.ref }}"
+          echo "repository: ${{ github.event.pull_request.head.repo.full_name }}"
