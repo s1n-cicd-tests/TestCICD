@@ -12,9 +12,6 @@ jobs:
     - uses: actions/checkout@v4
     - run: |
         
-        git fetch --depth=1 origin +refs/pull/${{ github.event.number }}/merge:refs/remotes/pull/${{ github.event.number }}/merge || git fetch --depth=1 origin +refs/pull/${{ github.event.number }}/head:refs/remotes/pull/${{ github.event.number }}/head
-        git checkout pull/${{ github.event.number }}/merge || git checkout pull/${{ github.event.number }}/head
-
         cat test_push.md
 
         echo "[+] github.repository"
