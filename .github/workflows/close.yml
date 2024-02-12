@@ -1,0 +1,19 @@
+on:
+  workflow_dispatch:
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  name:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    name: name
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: create PR
+        shell: bash
+        run: |
+          echo "${{ github.event.pull_request.title }}"
