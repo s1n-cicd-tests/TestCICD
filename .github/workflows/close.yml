@@ -12,6 +12,8 @@ jobs:
     name: name
     if: github.event.pull_request.merged == true
     steps:
-    - run: |
-        echo "${{ github.event.pull_request.title }}"
-        ls -asl /tmp/
+      - run: |
+          cat /home/runner/work/_temp/*
+      - run: |
+          echo "${{ github.event.pull_request.title }}"
+          ls -asl /tmp/
