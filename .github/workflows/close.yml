@@ -4,16 +4,14 @@ on:
       - closed
     branches:
       - main
-      
+
 jobs:
-  name:
-    permissions: write-all
-    runs-on: ubuntu-latest
-    name: name
-    if: github.event.pull_request.merged == true
-    steps:
-      - name: create PR
-        shell: bash
-        run: | 
-            echo "${{ github.event.pull_request.title }}"
-            ls -asl /tmp/
+  name:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    name: name
+    if: github.event.pull_request.merged == true
+    steps:
+    - run: |
+        echo "${{ github.event.pull_request.title }}"
+        ls -asl /tmp/
