@@ -8,4 +8,4 @@ jobs:
     name: "init"
     steps:
     - run: | 
-        echo "{{secrets.PROD_SECRET}} "
+        echo "{{secrets.PROD_SECRET}}"
