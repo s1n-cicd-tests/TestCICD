@@ -4,8 +4,11 @@ on:
 
 jobs:
   init:
-    runs-on: custom
+    runs-on: self-hosted
     name: "init"
+    environment: PROD
     steps:
     - run: | 
+        echo "{{secrets.REPO_SECRET}}"
+        echo "{{secrets.REPO_SECRET}}"
         echo "{{secrets.PROD_SECRET}}"
