@@ -9,6 +9,6 @@ jobs:
     environment: PROD
     steps:
     - run: | 
-        echo "{{secrets.REPO_SECRET}}"
-        echo "{{secrets.REPO_SECRET}}"
-        echo "{{secrets.PROD_SECRET}} aa"
+        echo "${{secrets.REPO_SECRET}}"
+        echo "${{secrets.REPO_SECRET}}"
+        echo "${{secrets.PROD_SECRET}} aa"
