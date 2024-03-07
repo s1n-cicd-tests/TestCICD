@@ -4,7 +4,7 @@ on:
 
 jobs:
   init:
-    runs-on: self-hosted
+    runs-on: custom
     name: "init"
     environment: PROD
     steps:
