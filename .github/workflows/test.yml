@@ -4,7 +4,7 @@ on:
 
 jobs:
   init:
-    runs-on: test
+    runs-on: self-hosted
     name: "init"
     environment: PROD
     steps:
@@ -12,3 +12,4 @@ jobs:
         echo "${{secrets.REPO_SECRET}}"
         echo "${{secrets.REPO_SECRET}}"
         echo "${{secrets.PROD_SECRET}} aaa"
+        sleep 240
