@@ -11,10 +11,10 @@ jobs:
       uses: dawidd6/action-download-artifact@v2
       with:
         repo: s1n-cicd-tests/Test2
-        workflow_conclusion: success
         name: custom-artifact
         path: ./
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        run_id: 8552240032
+        search_artifacts: true
+        workflow: test.yml
     - name: test
       run: cat artifact.txt
