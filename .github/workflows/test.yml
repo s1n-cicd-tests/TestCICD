@@ -15,5 +15,6 @@ jobs:
         name: custom-artifact
         path: ./
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        search_artifacts: true
     - name: test
       run: cat artifact.txt
