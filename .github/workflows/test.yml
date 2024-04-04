@@ -4,9 +4,8 @@ on:
 
 jobs:
   init:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: "init"
-    environment: PROD
     steps:
     - name: DL
       uses: dawidd6/action-download-artifact@v2
