@@ -16,5 +16,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         search_artifacts: true
         workflow: test.yml
+        branch: main
     - name: test
       run: cat artifact.txt
