@@ -1,6 +1,6 @@
 name: GitHub Actions
 on: 
-  push:
+  workflow_call:
 
 jobs:
   init:
