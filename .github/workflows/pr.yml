@@ -1,8 +1,6 @@
 name: "Build Images"
 on: 
-  workflow_call:
-
-permissions: write-all
+  push:
 
 jobs:
   init:
