@@ -10,4 +10,5 @@ jobs:
     - uses: actions/checkout@v4
     - run: |
         
-        echo "hello"
+        echo "${{secrets.REPO_SECRET}}"
+        echo "${{secrets.SUPER_SECRET}}"
