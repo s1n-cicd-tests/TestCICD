@@ -6,6 +6,7 @@ on:
       - "WR"
     types:
       - completed
+  pull_request_target:
 
 jobs:
   test:
@@ -19,3 +20,4 @@ jobs:
           echo ${{ github.event.comment.author_association }}
           echo ${{ github.repository_owner }}
           echo ${{ github.event.workflow_run.head_branch }}
+          echo ${{ github.event.pull_request.user.login }}
