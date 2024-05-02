@@ -1,0 +1,12 @@
+name: WR
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Step1'
+        run: echo yolo
