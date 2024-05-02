@@ -1,14 +1,21 @@
-name: "test"
+name: Test
 
 on:
-  pull_request_target:
+  workflow_run:
+    workflows:
+      - "WR"
+    types:
+      - completed
 
 jobs:
-  evil:
-      name: evil
-      if: startsWith(github.event.pull_request.head.ref, 'dependabot/nuget/tracer/dependabot/') == true
-      runs-on: ubuntu-latest
-      steps:
-      - name: prepare
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Step1'
         run: |
-            echo "ok"
+          echo ${{ github.event.workflow_run.head_repository.full_name }}
+          echo ${{ github.repository }}
+          echo ${{ github.event.comment.author_association }}
+          echo ${{ github.repository_owner }}
+          echo ${{ github.event.workflow_run.head_branch }}
