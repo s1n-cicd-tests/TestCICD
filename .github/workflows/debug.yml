@@ -12,5 +12,6 @@ jobs:
       - name: test
         continue-on-error: true
         run: |
+           id
            ls /qgdsqhjgd
            id
