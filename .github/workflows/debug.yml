@@ -1,9 +1,10 @@
 name: Security test
 on:
-  pull_request:
+  workflow_dispatch:
   
 jobs:
   security:
+    runs-on: ubuntu-latest
 
 
     steps:
