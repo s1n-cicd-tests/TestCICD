@@ -4,7 +4,7 @@ on:
 
 jobs:
   init:
-    runs-on: test
+    runs-on: ubuntu-latest
     name: "init"
     steps:
     - uses: actions/checkout@v4
