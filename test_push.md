@@ -1,2 +1,3 @@
 clear
 a
+a
