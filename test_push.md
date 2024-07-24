@@ -1,8 +1,4 @@
-test
-
+clear
 a
-hello
-aa
-aaa
-aaaa
-aaaa
+a
+a
