@@ -19,14 +19,14 @@ jobs:
     steps:
       - name: 'Step1'
         run: |
-          echo ${{ github.event.workflow_run.head_repository.full_name }}
-          echo ${{ github.repository }}
-          echo ${{ github.event.comment.author_association }}
-          echo ${{ github.repository_owner }}
-          echo ${{ github.event.workflow_run.head_branch }}
-          echo ${{ github.event.pull_request.user.login }}
-          echo $GITHUB_REF
-          echo $GITHUB_HEAD_REF
-          echo ${{ github.head_ref }} 
-          echo ${{ github.ref_name }}
-          echo ${{ github.event.issue.pull_request.base.ref }}
+          echo "[+] github.event.workflow_run.head_repository.full_name: ${{ github.event.workflow_run.head_repository.full_name }}"
+          echo "[+] github.repository: ${{ github.repository }}"
+          echo "[+] github.event.comment.author_association: ${{ github.event.comment.author_association }}"
+          echo "[+] github.repository_owner: ${{ github.repository_owner }}"
+          echo "[+] github.event.workflow_run.head_branch: ${{ github.event.workflow_run.head_branch }}"
+          echo "[+] github.event.pull_request.user.login: ${{ github.event.pull_request.user.login }}"
+          echo "[+] GITHUB_REF: $GITHUB_REF"
+          echo "[+] GITHUB_HEAD_REF: $GITHUB_HEAD_REF"
+          echo "[+] github.head_ref: ${{ github.head_ref }} "
+          echo "[+] github.ref_name: ${{ github.ref_name }}"
+          echo "[+] github.event.issue.pull_request.base.ref: ${{ github.event.issue.pull_request.base.ref }}"
