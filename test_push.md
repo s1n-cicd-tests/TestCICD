@@ -1,4 +1,5 @@
-test
+a
+atest
 
 a
 hello
