@@ -32,4 +32,3 @@ jobs:
           echo "[+] github.ref_name: ${{ github.ref_name }}"
           echo "[+] github.event.issue.pull_request.base.ref: ${{ github.event.issue.pull_request.base.ref }}"
           echo "[+] github.actor: ${{github.actor}}"
-          env
