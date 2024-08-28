@@ -6,10 +6,6 @@ on:
       - "WR"
     types:
       - completed
-  pull_request_target:
-      types: [opened, synchronize]
-      branches:
-        - '**'
   issue_comment:
   push:
 
