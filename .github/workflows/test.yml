@@ -8,6 +8,7 @@ on:
       - completed
   issue_comment:
   push:
+  pull_request:
 
 jobs:
   test:
