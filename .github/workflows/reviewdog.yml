@@ -1,0 +1,9 @@
+name: reviewdog
+on: [pull_request, push]
+jobs:
+  octoscan:
+    name: octoscan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hugo-syn/octoscan-action@master
