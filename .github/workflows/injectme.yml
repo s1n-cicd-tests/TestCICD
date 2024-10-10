@@ -1,0 +1,14 @@
+name: Issue
+on:
+   issues:
+   
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - run: |
+            echo 'issue body: ${{ github.event.issue.body }}'
+            #dosomething with the issue
+      - run: |
+            ./deploy.sh --secret ${{ secrets.SUPER_SECRET }}
