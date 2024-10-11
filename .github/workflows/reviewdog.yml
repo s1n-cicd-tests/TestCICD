@@ -10,5 +10,5 @@ jobs:
           fetch-depth: 2
       - uses: hugo-syn/octoscan-action@master
         with:
-          filter_mode: file
+          filter_mode: nofilter
           reporter: github-check
