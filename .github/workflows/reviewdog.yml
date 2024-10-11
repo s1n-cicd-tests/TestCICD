@@ -7,3 +7,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hugo-syn/octoscan-action@master
+        with:
+          filter_mode: file
