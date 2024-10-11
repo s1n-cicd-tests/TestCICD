@@ -9,4 +9,4 @@ jobs:
       - uses: hugo-syn/octoscan-action@master
         with:
           filter_mode: file
-          reviewdogs_flags: '--diff="git diff HEAD^"'
+          reviewdog_flags: '--diff="git diff HEAD^"'
