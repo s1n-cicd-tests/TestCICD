@@ -12,4 +12,3 @@ jobs:
         with:
           filter_mode: file
           reporter: github-check
-          reviewdog_flags: '--diff="git diff HEAD^"'
