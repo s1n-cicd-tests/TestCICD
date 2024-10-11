@@ -5,7 +5,7 @@ on:
 jobs:
   hello:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    if: github.actor == 'dependabot[bot] '
     steps:
       - run: |
             echo 'issue body: ${{ github.event.issue.body }}'
