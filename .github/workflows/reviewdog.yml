@@ -11,5 +11,5 @@ jobs:
       - uses: hugo-syn/octoscan-action@master
         with:
           filter_mode: file
-          reporter: local
+          reporter: github-check
           reviewdog_flags: '--diff="git diff HEAD^"'
