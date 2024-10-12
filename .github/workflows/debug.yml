@@ -15,5 +15,6 @@ jobs:
       - name: debug
         run: |
           echo "Sec: $UPPERCASE_SECRET"
+          echo "Sec2: ${{secrets.REPO_SECRET}}"
         env:
           UPPERCASE_SECRET: ${{secrets.UPPERCASE_SECRET}}
