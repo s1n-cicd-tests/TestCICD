@@ -1,6 +1,6 @@
 name: Security test
 on:
-  push:
+  pull_request_review:
   
 jobs:
   security:
