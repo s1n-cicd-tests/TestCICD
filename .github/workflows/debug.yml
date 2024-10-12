@@ -13,6 +13,7 @@ jobs:
         run: |
           echo "Hello"
       - name: debug
-        run: echo "Hello"
+        run: |
+          echo "Sec: $UPPERCASE_SECRET"
         env:
           UPPERCASE_SECRET: ${{secrets.UPPERCASE_SECRET}}
