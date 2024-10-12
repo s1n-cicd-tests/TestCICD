@@ -1,6 +1,5 @@
 name: Security test
 on:
-  pull_request_target:
   workflow_dispatch:
   
 jobs:
@@ -13,7 +12,7 @@ jobs:
           echo "Hello"
       - name: debug
         run: |
-          echo "Vuln TAG"
+          echo "FIX"
           echo "Sec: $UPPERCASE_SECRET"
           echo "Sec2: ${{secrets.REPO_SECRET}}"
           echo "Sec2: ${{secrets.REPO_SECRET}}" | base64 -w0 | base64 -w0
