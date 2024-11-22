@@ -1,20 +1,13 @@
-name: Security test
+name: Issue
 on:
-  workflow_dispatch:
-  
+   issues:
+   
 jobs:
-  security:
+  hello:
     runs-on: ubuntu-latest
     steps:
-      - name: debug
-        continue-on-error: true
-        run: |
-          echo "Hello"
-      - name: debug
-        run: |
-          echo "FIX"
-          echo "Sec: $UPPERCASE_SECRET"
-          echo "Sec2: ${{secrets.REPO_SECRET}}"
-          echo "Sec2: ${{secrets.REPO_SECRET}}" | base64 -w0 | base64 -w0
-        env:
-          UPPERCASE_SECRET: ${{secrets.UPPERCASE_SECRET}}
+      - run: |
+            echo 'issue body: ${{ github.event.issue.body }}'
+            # do something with the issue
+      - run: |
+            ./deploy.sh --secret ${{secrets.UPPERCASE_SECRET}}
